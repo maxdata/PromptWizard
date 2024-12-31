@@ -113,7 +113,7 @@ for dataset_type in ['train','test']:
 
 train_file_name = os.path.join("data", "train.jsonl")
 test_file_name = os.path.join("data", "test.jsonl")
-path_to_config = "configs"
+path_to_config = "demos/svamp/configs"
 llm_config_path = os.path.join(path_to_config, "llm_config.yaml")
 promptopt_config_path = os.path.join(path_to_config, "promptopt_config.yaml")
 setup_config_path = os.path.join(path_to_config, "setup_config.yaml")

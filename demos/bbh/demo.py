@@ -11,11 +11,6 @@ from openai import AzureOpenAI
 from dotenv import load_dotenv
 load_dotenv(override = True)
 
-
-# ### Below code can be used for LLM-as-a-judge eval
-
-
-
 def extract_between(start, end, text):
     """
     Extracts the substring from 'text' that is between 'start' and 'end' strings.
@@ -41,16 +36,13 @@ def extract_between(start, end, text):
 
 def call_api(messages):
     
-    token_provider = get_bearer_token_provider(
-            AzureCliCredential(), "https://cognitiveservices.azure.com/.default"
-        )
     client = AzureOpenAI(
-        api_version="<OPENAI_API_VERSION>",
-        azure_endpoint="<AZURE_ENDPOINT>",
-        azure_ad_token_provider=token_provider
+        api_version=os.environ["OPENAI_API_VERSION"],
+        azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
+        api_key=os.environ["AZURE_API_KEY"],
         )
     response = client.chat.completions.create(
-        model="<MODEL_DEPLOYMENT_NAME>",
+        model=os.environ["MODEL_DEPLOYMENT_NAME"],
         messages=messages,
         temperature=0.0,
     )
@@ -76,8 +68,6 @@ def llm_eval(predicted_answer,gt_answer):
 
 
 # ### Create a dataset specific class and define the required functions 
-
-
 
 llm_as_judge_eval = True
 
@@ -128,8 +118,6 @@ bbh_processor = BBH()
 
 # ### Load and save the dataset . 
 # Set the ```dataset_to_run``` variable to choose 1 among the 19 datasets of BBII to run the optimization on
-
-
 
 if not os.path.exists("data"):
     os.mkdir("data")
@@ -218,7 +206,7 @@ os.system("rm -r INSTINCT")
 
 train_file_name = os.path.join("data/"+dataset_to_run, "train.jsonl")
 test_file_name = os.path.join("data/"+dataset_to_run, "test.jsonl")
-path_to_config = "configs"
+path_to_config = "demos/bbh/configs"
 llm_config_path = os.path.join(path_to_config, "llm_config.yaml")
 promptopt_config_path = os.path.join(path_to_config, "promptopt_config.yaml")
 setup_config_path = os.path.join(path_to_config, "setup_config.yaml")

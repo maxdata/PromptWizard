@@ -12,16 +12,12 @@ logger = get_glue_logger(__name__)
 
 def call_api(messages):
 
-    from azure.identity import get_bearer_token_provider, AzureCliCredential
     from openai import AzureOpenAI
 
-    token_provider = get_bearer_token_provider(
-            AzureCliCredential(), "https://cognitiveservices.azure.com/.default"
-        )
     client = AzureOpenAI(
         api_version=os.environ["OPENAI_API_VERSION"],
         azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-        azure_ad_token_provider=token_provider
+        api_key=os.environ["AZURE_API_KEY"],    
         )
     response = client.chat.completions.create(
         model=os.environ["AZURE_OPENAI_DEPLOYMENT_NAME"],

@@ -1,15 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# #### Set environment variables in [.env](.env) for LLM API calling
-
-# ### Import Dependencies
-
-
-
-import sys
-sys.path.insert(0, "../../")
-
 from glue.promptopt.instantiate import GluePromptOpt
 from glue.common_logic import DatasetSpecificProcessing
 from glue.utils.file import save_jsonlist
@@ -21,11 +9,6 @@ from datasets import load_dataset
 
 from dotenv import load_dotenv
 load_dotenv(override = True)
-
-
-# ### Create a dataset specific class and define the required functions 
-
-
 
 class GSM8k(DatasetSpecificProcessing):
 
@@ -113,7 +96,7 @@ for dataset_type in ['train','test']:
 
 train_file_name = os.path.join("data", "train.jsonl")
 test_file_name = os.path.join("data", "test.jsonl")
-path_to_config = "configs"
+path_to_config = "demos/gsm8k/configs"
 promptopt_config_path = os.path.join(path_to_config, "promptopt_config.yaml")
 setup_config_path = os.path.join(path_to_config, "setup_config.yaml")
 

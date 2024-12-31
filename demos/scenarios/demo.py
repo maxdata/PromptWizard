@@ -24,7 +24,7 @@ def update_yaml_file(file_path,config_dict):
 
     print("YAML file updated successfully!")
 
-path_to_config = "configs"
+path_to_config = "demos/scenarios/configs"
 promptopt_config_path = os.path.join(path_to_config, "promptopt_config.yaml")
 setup_config_path = os.path.join(path_to_config, "setup_config.yaml")
 
