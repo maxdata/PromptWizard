@@ -1,13 +1,9 @@
 from typing import Dict
 from llama_index.core.callbacks import CallbackManager, TokenCountingHandler
-from llama_index.core.llms import ChatMessage
 from llama_index.core.llms import LLM
-from tenacity import retry, stop_after_attempt, wait_fixed, wait_random
 from ..base_classes import LLMConfig
-from ..constants.str_literals import InstallLibs, OAILiterals, \
-    OAILiterals, LLMLiterals, LLMOutputTypes
+from ..constants.str_literals import InstallLibs, LLMLiterals, LLMOutputTypes
 from .llm_helper import get_token_counter
-from ..exceptions import GlueLLMException
 from ..utils.runtime_tasks import install_lib_if_missing
 from ..utils.logging import get_glue_logger
 from ..utils.runtime_tasks import str_to_class
@@ -16,32 +12,22 @@ logger = get_glue_logger(__name__)
 
 def call_api(messages):
 
-    from openai import OpenAI
     from azure.identity import get_bearer_token_provider, AzureCliCredential
     from openai import AzureOpenAI
 
-    if os.environ['USE_OPENAI_API_KEY'] == "True":
-        client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
-
-        response = client.chat.completions.create(
-        model=os.environ["OPENAI_MODEL_NAME"],
+    token_provider = get_bearer_token_provider(
+            AzureCliCredential(), "https://cognitiveservices.azure.com/.default"
+        )
+    client = AzureOpenAI(
+        api_version=os.environ["OPENAI_API_VERSION"],
+        azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
+        azure_ad_token_provider=token_provider
+        )
+    response = client.chat.completions.create(
+        model=os.environ["AZURE_OPENAI_DEPLOYMENT_NAME"],
         messages=messages,
         temperature=0.0,
-        )
-    else:
-        token_provider = get_bearer_token_provider(
-                AzureCliCredential(), "https://cognitiveservices.azure.com/.default"
-            )
-        client = AzureOpenAI(
-            api_version=os.environ["OPENAI_API_VERSION"],
-            azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-            azure_ad_token_provider=token_provider
-            )
-        response = client.chat.completions.create(
-            model=os.environ["AZURE_OPENAI_DEPLOYMENT_NAME"],
-            messages=messages,
-            temperature=0.0,
-        )
+    )
 
     prediction = response.choices[0].message.content
     return prediction
@@ -50,20 +36,11 @@ def call_api(messages):
 class LLMMgr:
     @staticmethod
     def chat_completion(messages: Dict):
-        llm_handle = os.environ.get("MODEL_TYPE", "AzureOpenAI")
         try:
-            if(llm_handle == "AzureOpenAI"): 
-                # Code to for calling LLMs
-                return call_api(messages)
-            elif(llm_handle == "LLamaAML"):
-                # Code to for calling SLMs
-                return 0
+            return call_api(messages)
         except Exception as e:
             print(e)
             return "Sorry, I am not able to understand your query. Please try again."
-            # raise GlueLLMException(f"Exception when calling {llm_handle.__class__.__name__} "
-            #                        f"LLM in chat mode, with message {messages} ", e)
-        
 
     @staticmethod
     def get_all_model_ids_of_type(llm_config: LLMConfig, llm_output_type: str):

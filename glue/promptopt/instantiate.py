@@ -63,10 +63,7 @@ class GluePromptOpt:
         self.setup_config = yaml_to_class(setup_config_path, SetupConfig)
         self.prompt_opt_param = yaml_to_class(prompt_config_path, prompt_opt_hyperparam_cls)
         current_dir = dirname(__file__)
-        default_yaml_path = join(current_dir,
-                                 "techniques",
-                                 prompt_config_dict[PromptOptimizationLiterals.PROMPT_TECHNIQUE_NAME],
-                                 "prompt_pool.yaml")
+        default_yaml_path = join(current_dir, "prompt_pool.yaml")
 
         self.prompt_pool = yaml_to_class(prompt_pool_path, promptpool_cls, default_yaml_path)
 
