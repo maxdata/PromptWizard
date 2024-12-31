@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List
 
-from ....common.base_classes import UniversalBaseClass
+from ....base_classes import UniversalBaseClass
 from ...constants import PromptOptimizationParams, PromptPool
 
 

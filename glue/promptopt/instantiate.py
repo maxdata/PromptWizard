@@ -2,13 +2,13 @@ from os.path import dirname, join
 import pickle
 import time
 
-from ..common.base_classes import SetupConfig
-from ..common.constants.log_strings import CommonLogsStr
-from ..common.utils.logging import get_glue_logger, set_logging_config
-from ..common.utils.file import read_jsonl, yaml_to_class, yaml_to_dict, read_jsonl_row
+from ..base_classes import SetupConfig
+from ..constants.log_strings import CommonLogsStr
+from ..utils.logging import get_glue_logger, set_logging_config
+from ..utils.file import read_jsonl, yaml_to_class, yaml_to_dict, read_jsonl_row
 from ..paramlogger import ParamLogger
 from ..promptopt.constants import PromptOptimizationLiterals
-from ..promptopt.techniques.common_logic import DatasetSpecificProcessing
+from ..common_logic import DatasetSpecificProcessing
 from ..promptopt.utils import get_promptopt_class
 
 

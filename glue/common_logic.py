@@ -1,7 +1,7 @@
 from abc import abstractmethod, ABC
 from typing import Any, List
 
-from ..constants import PromptOptimizationParams
+from .promptopt.constants import PromptOptimizationParams
 
 
 class PromptOptimizer(ABC):
@@ -11,7 +11,7 @@ class PromptOptimizer(ABC):
     TECHNIQUE_NAME = ""
 
     @abstractmethod
-    def get_best_prompt(self, params: PromptOptimizationParams) -> (str, Any):
+    def get_best_prompt(self, params: PromptOptimizationParams):
         """Method that will return best prompt for given task description, base instruction and few shot examples"""
         pass
 

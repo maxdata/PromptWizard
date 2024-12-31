@@ -103,14 +103,10 @@ setup_config_path = os.path.join(path_to_config, "setup_config.yaml")
 
 
 # ### Create an object for calling prompt optimization and inference functionalities
-
-
-
 gp = GluePromptOpt(promptopt_config_path,
                    setup_config_path,
                    train_file_name,
                    aquarat_processor)
-
 
 # ### Call prompt optmization function
 # 1. ```use_examples``` can be used when there are training samples and a mixture of real and synthetic in-context examples are required in the final prompt. When set to ```False``` all the in-context examples will be real

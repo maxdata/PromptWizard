@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from ..common.base_classes import UniversalBaseClass
+from ..base_classes import UniversalBaseClass
 
 
 # Set of Prompt Management Techniques supported by Vellm co-pilot

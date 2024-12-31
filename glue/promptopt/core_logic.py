@@ -2,17 +2,17 @@ import random
 import re
 from os.path import join
 from tqdm import tqdm
-from typing import Any, Dict, List
+from typing import List
 import json
 
-from ....paramlogger import ParamLogger
-from ....paramlogger.constants import LogLiterals
-from ....common.base_classes import SetupConfig, UniversalBaseClass
-from ....common.llm.llm_mgr import LLMMgr
-from ....common.constants.log_strings import CommonLogsStr
-from ...constants import PromptOptimizationParams, SupportedPromptOpt
-from ...techniques.common_logic import DatasetSpecificProcessing, PromptOptimizer
-from ...techniques.critique_n_refine.base_classes import CritiqueNRefinePromptPool
+from ..paramlogger import ParamLogger
+from ..constants.log_strings import LogLiterals
+from ..base_classes import SetupConfig, UniversalBaseClass
+from ..llm.llm_mgr import LLMMgr
+from ..constants.log_strings import CommonLogsStr
+from ..constants import PromptOptimizationParams, SupportedPromptOpt
+from ..common_logic import DatasetSpecificProcessing, PromptOptimizer
+from ..base_classes import CritiqueNRefinePromptPool
 
 
 def extract_between(start, end, text):

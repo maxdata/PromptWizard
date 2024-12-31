@@ -1,12 +1,11 @@
-from ..common.exceptions import GlueValidaionException
-from .constants import PromptOptimizationParams, PromptPool, SupportedPromptOpt
-from .techniques.common_logic import PromptOptimizer
-from .techniques.critique_n_refine.core_logic import CritiqueNRefine
-from .techniques.critique_n_refine.base_classes import CritiqueNRefineParams, \
+from ..exceptions import GlueValidaionException
+from .constants import SupportedPromptOpt
+from .core_logic import CritiqueNRefine
+from .ine.base_classes import CritiqueNRefineParams, \
     CritiqueNRefinePromptPool
 
 
-def get_promptopt_class(prompt_technique_name: str) -> (PromptOptimizer, PromptOptimizationParams, PromptPool):
+def get_promptopt_class(prompt_technique_name: str):
     """
     :params prompt_technique_name: Name of prompt optimization technique
     :return: Instance of class PromptRefinements, which is super class for all Prompt Optimization classes,
