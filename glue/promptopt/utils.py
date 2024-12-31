@@ -1,8 +1,7 @@
 from ..exceptions import GlueValidaionException
 from .constants import SupportedPromptOpt
 from .core_logic import CritiqueNRefine
-from .ine.base_classes import CritiqueNRefineParams, \
-    CritiqueNRefinePromptPool
+from .base_classes import CritiqueNRefineParams, CritiqueNRefinePromptPool
 
 
 def get_promptopt_class(prompt_technique_name: str):

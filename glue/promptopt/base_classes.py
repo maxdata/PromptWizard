@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import List
 
-from ....base_classes import UniversalBaseClass
-from ...constants import PromptOptimizationParams, PromptPool
+from ..base_classes import UniversalBaseClass
+from .constants import PromptOptimizationParams, PromptPool
 
 
 @dataclass

@@ -6,14 +6,14 @@ from typing import List
 import json
 
 from ..paramlogger import ParamLogger
-from ..constants.log_strings import LogLiterals
+from ..paramlogger.constants import LogLiterals
 from ..base_classes import SetupConfig, UniversalBaseClass
 from ..llm.llm_mgr import LLMMgr
 from ..constants.log_strings import CommonLogsStr
-from ..constants import PromptOptimizationParams, SupportedPromptOpt
 from ..common_logic import DatasetSpecificProcessing, PromptOptimizer
-from ..base_classes import CritiqueNRefinePromptPool
 
+from .base_classes import CritiqueNRefinePromptPool
+from .constants import PromptOptimizationParams, SupportedPromptOpt
 
 def extract_between(start, end, text):
     """
@@ -456,7 +456,7 @@ class CritiqueNRefine(PromptOptimizer, UniversalBaseClass):
 
         return refined_instructions[0] if refined_instructions else None
 
-    def get_best_prompt(self, params: PromptOptimizationParams,use_examples=False,run_without_train_examples=False,generate_synthetic_examples=False) -> (str, Any):
+    def get_best_prompt(self, params: PromptOptimizationParams,use_examples=False,run_without_train_examples=False,generate_synthetic_examples=False):
         """
         Perform `params.max_iterations` iterations for optimizing your prompt. And return the best prompt found so far.
 

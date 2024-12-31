@@ -4,8 +4,8 @@
 # sys.path.insert(0, "../../")
 
 from glue.promptopt.instantiate import GluePromptOpt
-from glue.promptopt.techniques.common_logic import DatasetSpecificProcessing
-from glue.common.utils.file import save_jsonlist
+from glue.common_logic import DatasetSpecificProcessing
+from glue.utils.file import save_jsonlist
 from typing import Any
 from tqdm import tqdm
 import os
